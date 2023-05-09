@@ -48,7 +48,8 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::whereId($id)->first();
+        return response()->json($user);
     }
 
     /**
@@ -82,6 +83,8 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::whereId($id)->first();
+        $user->delete();
+        return response()->json('Account deleted successfully');
     }
 }

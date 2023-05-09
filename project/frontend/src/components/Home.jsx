@@ -15,7 +15,11 @@ const Home = () => {
   useEffect(()=>{
     fetchAllUsers();
   },[]);
-
+  const deleteUser = async (id)=>{
+    await http.delete('/users/'+id).then((res)=>{
+      fetchAllUsers();
+    })
+  }
   return (
     <div className='mt-5'>
       <h2>Users Listings</h2>
@@ -36,8 +40,9 @@ const Home = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
-                <Link className='btn btn-info' to={{pathname:'/edit/'+user.id}}>Edit</Link>
-              <button type="button" className="btn btn-danger">Delete</button></td>
+                <Link className='btn btn-primary' to={{pathname:'/edit/'+user.id}}>Edit</Link>
+                <Link className='btn btn-info' to={{pathname:'/details/'+user.id}}>Details</Link>
+              <button type="button" onClick={()=>{deleteUser(user.id)}} className="btn btn-danger">Delete</button></td>
             </tr>
             ))}
             
